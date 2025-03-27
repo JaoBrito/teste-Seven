@@ -1,5 +1,6 @@
 ![alt text](image.png)
 
+(instruções estão localizadas no arquivo pdf dentro do repositório)
 # Tecnologias utilizadas:
 🔥 NODE, JEST, MYSQL, PRISMA, EXPRESS, SWAGGER, JWT, JOIS 🔥
 # Como rodar o projeto

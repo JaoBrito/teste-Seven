@@ -1,5 +1,7 @@
 ![alt text](image.png)
 
+# Tecnologias utilizadas:
+🔥 NODE, JEST, MYSQL, PRISMA, EXPRESS, SWAGGER, JWT, JOIS 🔥
 # Como rodar o projeto
 ## Clone o repositório:
     git clone https://github.com/JaoBrito/teste-Seven.git 

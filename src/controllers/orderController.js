@@ -5,18 +5,13 @@ const createOrder = async (req, res) => {
   const { userId, products } = req.body;
 
   try {
-    // Calcular o total do pedido com base nos produtos
+    // Calcular o total do pedido
     const orderTotal = products.reduce((total, product) => total + (product.price * product.quantity), 0);
 
     const order = await prisma.order.create({
       data: {
         userId,
-        products: {
-          create: products.map(product => ({
-            productId: product.id,
-            quantity: product.quantity,
-          })),
-        },
+        products, // Armazena como JSON puro
         total: orderTotal,
         status: 'Pendente', // Status inicial
       },
@@ -24,6 +19,7 @@ const createOrder = async (req, res) => {
 
     res.status(201).json(order);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: 'Erro ao criar pedido', error });
   }
 };

@@ -163,9 +163,9 @@ const router = express.Router();
  */
 
 
-router.post('/', createOrder); // Criar pedido
-router.get('/', getAllOrders);    // Listar pedidos
-router.get('/user/:userId', getOrdersByUser) //Lista todos os pedidos do user especifico
-router.put('/:id/status', updateOrderStatus); // Atualizar status do pedido
+router.post('/', createOrder);
+router.get('/', getAllOrders);
+router.get('/user/:userId', getOrdersByUser)
+router.put('/:id/status', updateOrderStatus);
 
 module.exports = router;

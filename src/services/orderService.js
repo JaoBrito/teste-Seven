@@ -5,7 +5,6 @@ async function createOrder(userId, products) {
       throw new Error("Usuário ou produtos inválidos");
     }
 
-    // Remover qualquer chave "create" dos produtos, caso venha do frontend errado
     const formattedProducts = products.map(({ id, quantity }) => ({
       productId: id,
       quantity,
@@ -17,7 +16,7 @@ async function createOrder(userId, products) {
     const pedido = await prisma.order.create({
       data: {
         userId,
-        products: formattedProducts, // Armazena corretamente como JSON puro
+        products: formattedProducts,
         total,
       },
     });

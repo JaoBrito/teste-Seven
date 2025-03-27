@@ -11,9 +11,9 @@ const createOrder = async (req, res) => {
     const order = await prisma.order.create({
       data: {
         userId,
-        products, // Armazena como JSON puro
+        products,
         total: orderTotal,
-        status: 'Pendente', // Status inicial
+        status: 'Pendente',
       },
     });
 
@@ -27,7 +27,7 @@ const createOrder = async (req, res) => {
 // Função para listar todos os pedidos
 const getAllOrders = async (req, res) => {
   try {
-    const orders = await prisma.order.findMany(); // Busca todos os pedidos
+    const orders = await prisma.order.findMany();
     res.status(200).json(orders);
   } catch (error) {
     res.status(500).json({ message: 'Erro ao listar pedidos', error });
@@ -36,7 +36,7 @@ const getAllOrders = async (req, res) => {
 
 // Função para listar os pedidos do usuário
 const getOrdersByUser = async (req, res) => {
-  const { userId } = req.params; // Recebe o ID do usuário como parâmetro de rota
+  const { userId } = req.params;
 
   try {
     const orders = await prisma.order.findMany({
@@ -59,7 +59,6 @@ const updateOrderStatus = async (req, res) => {
   const { status } = req.body;
 
   try {
-    // Verificar se o pedido existe antes de atualizar
     const existingOrder = await prisma.order.findUnique({
       where: { id },
     });
@@ -68,7 +67,6 @@ const updateOrderStatus = async (req, res) => {
       return res.status(404).json({ message: 'Pedido não encontrado' });
     }
 
-    // Atualizar o status do pedido
     const updatedOrder = await prisma.order.update({
       where: { id },
       data: { status },

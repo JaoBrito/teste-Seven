@@ -21,12 +21,10 @@ app.use('/api/orders', orderRoutes);
 
 swaggerDocs(app);
 
-// Se o script for chamado diretamente, inicia o servidor
 if (require.main === module) {
   app.listen(3000, () => {
     console.log('Server rodando na porta 3000 🔥🔥🔥');
   });
 }
 
-// Exporta `app` para uso nos testes
 module.exports = app;

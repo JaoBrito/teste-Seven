@@ -109,10 +109,9 @@ const router = express.Router();
  *         description: Produto não encontrado
  */
 
-// Rotas de produtos
-router.post("/", createProduct); // Criar produto
-router.get("/", getProducts); // Listar produtos
-router.put("/:id", updateProduct); // Atualizar produto
-router.delete("/:id", deleteProduct); // Remover produto
+router.post("/", createProduct);
+router.get("/", getProducts);
+router.put("/:id", updateProduct);
+router.delete("/:id", deleteProduct);
 
 module.exports = router;

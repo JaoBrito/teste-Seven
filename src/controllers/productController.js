@@ -1,4 +1,4 @@
-const prisma = require('../prismaClient'); // Para usar o Prisma Client
+const prisma = require('../prismaClient');
 
 // Função para criar produto
 const createProduct = async (req, res) => {

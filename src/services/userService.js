@@ -1,9 +1,9 @@
 const prisma = require("../prismaClient");
-const bcrypt = require("bcryptjs"); // Para hash da senha
+const bcrypt = require("bcryptjs");
 
 async function criarUsuario(name, email, password) {
   try {
-    // 🔹 Verifica se o e-mail já está cadastrado
+    //Verifica se o email já está cadastrado
     const usuarioExistente = await prisma.user.findUnique({
       where: { email },
     });
@@ -12,15 +12,15 @@ async function criarUsuario(name, email, password) {
       throw new Error("E-mail já cadastrado");
     }
 
-    // 🔹 Hash da senha antes de salvar
+    //Hash da senha antes de salvar
     const senhaCriptografada = await bcrypt.hash(password, 10);
 
-    // 🔹 Cria o usuário
+    //Cria o usuário
     const usuario = await prisma.user.create({
       data: {
         name,
         email,
-        password: senhaCriptografada, // Salva a senha criptografada
+        password: senhaCriptografada,
       },
     });
 

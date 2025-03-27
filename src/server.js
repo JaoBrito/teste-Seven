@@ -1,4 +1,5 @@
 const express = require('express');
+const swaggerDocs = require('./config/swaggerConfig')
 const cors = require('cors');
 const dotenv = require('dotenv');
 const authRoutes = require('./routes/authRoutes');
@@ -16,6 +17,8 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
+
+swaggerDocs(app);
 
 app.listen(3000, () => {
   console.log('Server rodando na porta 3000 🔥🔥🔥');

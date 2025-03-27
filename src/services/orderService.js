@@ -1,35 +1,61 @@
 const prisma = require('../prismaClient');
 
-async function criarPedido(userId, products) {
+
+// async function createOrder(userId, products) {
+//   try {
+//       if (!userId || !Array.isArray(products) || products.length === 0) {
+//           throw new Error("Usuário ou produtos inválidos");
+//       }
+
+//       // Calcula o total
+//       const total = products.reduce((acc, p) => acc + p.quantity * p.price, 0);
+
+//       const pedido = await prisma.order.create({
+//           data: {
+//               userId,
+//               products,  // Não é necessário JSON.stringify, o Prisma salva automaticamente como JSON
+//               total,
+//           },
+//       });
+
+//       return pedido;
+//   } catch (error) {
+//       console.error("Erro ao criar pedido:", error);
+//       throw new Error("Erro ao criar pedido");
+//   }
+// }
+
+// module.exports = { createOrder };
+
+async function createOrder(userId, products) {
   try {
-    // 🔹 Verifica se o usuário existe
-    const usuario = await prisma.user.findUnique({
-      where: { id: userId },
-    });
+      if (!userId || !Array.isArray(products) || products.length === 0) {
+          throw new Error("Usuário ou produtos inválidos");
+      }
 
-    if (!usuario) {
-      throw new Error("Usuário não encontrado");
-    }
+      // Calcula o total
+      const total = products.reduce((acc, p) => acc + p.quantity * p.price, 0);
 
-    // 🔹 Calcula o total do pedido
-    const total = products.reduce((acc, p) => acc + p.quantity * p.price, 0);
+      // Formatar apenas os campos necessários
+      const formattedProducts = products.map(p => ({
+          productId: p.id, 
+          quantity: p.quantity
+      }));
 
-    // 🔹 Cria o pedido
-    const pedido = await prisma.order.create({
-      data: {
-        userId, // O ID do usuário já foi validado
-        products,
-        total,
-        status: "Pendente",
-      },
-    });
+      // Criar o pedido no banco de dados
+      const pedido = await prisma.order.create({
+          data: {
+              userId,
+              products: formattedProducts,  // Agora será salvo como JSON corretamente
+              total,
+          },
+      });
 
-    return pedido;
+      return pedido;
   } catch (error) {
-    console.error("Erro ao criar pedido:", error);
-    throw new Error("Erro ao criar pedido");
+      console.error("Erro ao criar pedido:", error);
+      throw new Error("Erro ao criar pedido");
   }
 }
 
-
-module.exports = { criarPedido };
+module.exports = { createOrder };
